@@ -1,11 +1,18 @@
 package com.pets.petHome.model;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "tb_customer")
@@ -47,10 +54,19 @@ public class Customer {
 	
 	@NotNull
 	private int qttPets;
+	
+	@NotNull
+	@OneToOne
+	@JsonIgnoreProperties(value = "customer")
+	private User user;
+
+	@OneToMany(mappedBy = "customer", cascade = CascadeType.REMOVE)
+	@JsonIgnoreProperties(value = "customer")
+	private List<Pet> pet;
 
 	public Customer(Long id, String name, String lastName,  String nickName,
 			String address, String cep, String cpf, String birthDate,
-			String phoneNumber, String email, boolean notifications, int qttPets) {
+			String phoneNumber, String email, boolean notifications, int qttPets, User user, List<Pet> pet) {
 		this.id = id;
 		this.name = name;
 		this.lastName = lastName;
@@ -63,6 +79,8 @@ public class Customer {
 		this.email = email;
 		this.notifications = notifications;
 		this.qttPets = qttPets;
+		this.user = user;
+		this.pet = pet;
 	}
 	
 	public Customer() {}
@@ -162,7 +180,23 @@ public class Customer {
 	public void setQttPets(int qttPets) {
 		this.qttPets = qttPets;
 	}
-	
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public List<Pet> getPet() {
+		return pet;
+	}
+
+	public void setPet(List<Pet> pet) {
+		this.pet = pet;
+	}
+
 	
 	
 	

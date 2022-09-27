@@ -20,7 +20,7 @@ import com.pets.petHome.repository.PetRepository;
 
 
 @RestController
-@RequestMapping("/pets")
+@RequestMapping("/pet")
 @CrossOrigin("*")
 public class PetController {
 	

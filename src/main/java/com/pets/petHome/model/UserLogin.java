@@ -16,8 +16,9 @@ public class UserLogin {
 	}*/
 	
 	private String nameLogin;
+	private String emailLogin;
 	private String passwordLogin;
-	private String tokenLoginString;
+	private String tokenLogin;
 
 	public String getNameLogin() {
 		return nameLogin;
@@ -25,6 +26,15 @@ public class UserLogin {
 
 	public void setNameLogin(String nameLogin) {
 		this.nameLogin = nameLogin;
+	}
+	
+
+	public String getEmailLogin() {
+		return emailLogin;
+	}
+
+	public void setEmailLogin(String emailLogin) {
+		this.emailLogin = emailLogin;
 	}
 
 	public String getPasswordLogin() {
@@ -35,12 +45,12 @@ public class UserLogin {
 		this.passwordLogin = passwordLogin;
 	}
 
-	public String getTokenLoginString() {
-		return tokenLoginString;
+	public String getTokenLogin() {
+		return tokenLogin;
 	}
 
-	public void setTokenLoginString(String tokenLoginString) {
-		this.tokenLoginString = tokenLoginString;
+	public void setTokenLogin(String tokenLogin) {
+		this.tokenLogin = tokenLogin;
 	}
 
 	

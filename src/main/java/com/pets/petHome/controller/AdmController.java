@@ -15,41 +15,41 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.pets.petHome.model.Customer;
-import com.pets.petHome.repository.CustomerRepository;
+import com.pets.petHome.model.Adm;
+import com.pets.petHome.repository.AdmRepository;
+
 
 @RestController
-@RequestMapping("/customer")
+@RequestMapping("/adm")
 @CrossOrigin("*")
-public class CustomerController {
+public class AdmController {
 	
 	@Autowired
-	private CustomerRepository repository;
+	private AdmRepository repository;
 	
-	@GetMapping("/all") //catches the list of all customers
-	public ResponseEntity<List<Customer>>getAll(){
+	@GetMapping("/all") //catches the list of all adms
+	public ResponseEntity<List<Adm>>getAll(){
 		return ResponseEntity.ok(repository.findAll());
 	}
 	
-	@GetMapping("/{id}") //catches an specific customer by the id
-	public ResponseEntity<Customer>getById(@PathVariable Long id){
+	@GetMapping("/{id}") //catches an specific adm by the id
+	public ResponseEntity<Adm>getById(@PathVariable Long id){
 		return repository.findById(id).map(resp -> ResponseEntity.ok(resp)).orElse(ResponseEntity.notFound().build());
 	}
 	
-	@PostMapping("/signup") // creates a new customer
-	public ResponseEntity<Customer> post(@RequestBody Customer customer){
-		return ResponseEntity.status(HttpStatus.CREATED).body(repository.save(customer));
+	@PostMapping("/signup") // creates a new adm
+	public ResponseEntity<Adm> post(@RequestBody Adm adm){
+		return ResponseEntity.status(HttpStatus.CREATED).body(repository.save(adm));
 	}
 	
-	@PutMapping("/update") //updates an existing customer
-	public ResponseEntity<Customer> put (@RequestBody Customer customer){
-		return ResponseEntity.ok(repository.save(customer));
+	@PutMapping("/update") //updates an existing adm
+	public ResponseEntity<Adm> put (@RequestBody Adm adm){
+		return ResponseEntity.ok(repository.save(adm));
 	}
 	
-	@DeleteMapping("/{id}") //deletes an existing customer
+	@DeleteMapping("/{id}") //deletes an existing adm
 	public void delete (@PathVariable long id){
 		repository.deleteById(id);
 	}
-	
 
 }

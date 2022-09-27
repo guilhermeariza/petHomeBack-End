@@ -4,8 +4,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "tb_pet")
@@ -29,16 +32,24 @@ public class Pet {
 	
 	@NotNull
 	private int rationPeriodizationInDays;
+	
+	@ManyToOne
+	@JsonIgnoreProperties(value = "pet")
+	private Customer customer;
 
-	public Pet(Long id, @NotNull String name, @NotNull int age, @NotNull String gender, @NotNull String race,
-			@NotNull int rationPeriodizationInDays) {
+	public Pet(Long id, String name, int age, String gender, String race,
+			int rationPeriodizationInDays, Customer customer) {
 		this.id = id;
 		this.name = name;
 		this.age = age;
 		this.gender = gender;
 		this.race = race;
 		this.rationPeriodizationInDays = rationPeriodizationInDays;
+		this.customer = customer;
 	}
+	
+	public Pet() {}
+
 
 	public Long getId() {
 		return id;
@@ -86,6 +97,14 @@ public class Pet {
 
 	public void setRationPeriodizationInDays(int rationPeriodizationInDays) {
 		this.rationPeriodizationInDays = rationPeriodizationInDays;
+	}
+
+	public Customer getCustomer() {
+		return customer;
+	}
+
+	public void setCustomer(Customer customer) {
+		this.customer = customer;
 	}
 	
 	
