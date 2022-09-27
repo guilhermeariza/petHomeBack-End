@@ -1,6 +1,9 @@
 package com.pets.petHome.controller;
 
 import java.util.List;
+import java.util.Optional;
+
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,7 +19,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.pets.petHome.model.User;
+import com.pets.petHome.model.UserLogin;
 import com.pets.petHome.repository.UserRepository;
+import com.pets.petHome.service.UserService;
 
 
 @RestController
@@ -26,6 +31,9 @@ public class UserController {
 
 	@Autowired
 	private UserRepository repository;
+	
+	@Autowired
+	private UserService userService;
 	
 	@GetMapping("/all") //catches the list of all users
 	public ResponseEntity<List<User>>getAll(){
@@ -38,8 +46,17 @@ public class UserController {
 	}
 	
 	@PostMapping("/signup") // creates a new user
-	public ResponseEntity<User> post(@RequestBody User user){
-		return ResponseEntity.status(HttpStatus.CREATED).body(repository.save(user));
+	public ResponseEntity<User> post(@Valid @RequestBody User user){
+		return userService.signupUser(user)
+				.map(response -> ResponseEntity.status(HttpStatus.CREATED).body(response))
+				.orElse(ResponseEntity.status(HttpStatus.BAD_REQUEST).build());
+	}
+	
+	@PostMapping("/signin") // login with an existing user
+	public ResponseEntity<UserLogin> login(@RequestBody Optional<UserLogin> userLogin)
+	{
+		return userService.authenticateUser(userLogin).map(resp -> ResponseEntity.ok(resp))
+				.orElse(ResponseEntity.status(HttpStatus.UNAUTHORIZED).build());
 	}
 	
 	@PutMapping("/update") //updates an existing user

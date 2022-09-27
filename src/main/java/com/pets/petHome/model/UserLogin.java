@@ -15,10 +15,19 @@ public class UserLogin {
 		}
 	}*/
 	
+	private Long idLogin;
 	private String nameLogin;
 	private String emailLogin;
 	private String passwordLogin;
 	private String tokenLogin;
+	
+	public Long getIdLogin() {
+		return idLogin;
+	}
+
+	public void setIdLogin(Long id) {
+		this.idLogin = id;
+	}
 
 	public String getNameLogin() {
 		return nameLogin;
